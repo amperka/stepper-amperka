@@ -10,8 +10,16 @@
 
  */
 
+#ifndef ARDUINO
+#error "Arduino version not defined"
+#endif
 
-#include "Arduino.h"
+#if ARDUINO >= 100
+#include <Arduino.h>
+#else
+#include <WProgram.h>
+#endif 
+ 
 #include "StepperAmperka.h"
 
 
@@ -59,7 +67,7 @@ void StepperAmperka::setSpeed(long revs_per_minute)
   Moves the motor steps_to_move steps.  If the number is negative, 
    the motor moves in the reverse direction.
  */
-void StepperAmperka::step(int steps_to_move, byte step_type)
+void StepperAmperka::step(int steps_to_move, uint8_t step_type)
 {  
   int steps_left = abs(steps_to_move);  // how many steps to take
   
@@ -116,7 +124,7 @@ void StepperAmperka::step(int steps_to_move, byte step_type)
 /*
  * Moves the motor forward or backwards.
  */
-void StepperAmperka::stepMotor(int thisStep, byte step_type)
+void StepperAmperka::stepMotor(int thisStep, uint8_t step_type)
 {
   if (step_type == FULL_STEP) {
     switch (thisStep) {

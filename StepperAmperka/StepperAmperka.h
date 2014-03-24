@@ -10,6 +10,16 @@
 
 */
 
+#ifndef ARDUINO
+#error "Arduino version not defined"
+#endif
+
+#if ARDUINO >= 100
+#include <Arduino.h>
+#else
+#include <WProgram.h>
+#endif
+
 // ensure this library description is only included once
 #ifndef StepperAmperka_h
 #define StepperAmperka_h
@@ -26,19 +36,19 @@ class StepperAmperka {
     // constructor:
     StepperAmperka(
         int number_of_steps,
-        byte motor_pin_1 = 4,
-        byte motor_pin_2 = 5,
-        byte motor_pin_3 = 6,
-        byte motor_pin_4 = 7);
+        uint8_t motor_pin_1 = 4,
+        uint8_t motor_pin_2 = 5,
+        uint8_t motor_pin_3 = 6,
+        uint8_t motor_pin_4 = 7);
 
     // speed setter method:
     void setSpeed(long revs_per_minute);
 
     // mover method:
-    void step(int number_of_steps, byte step_type=FULL_STEP);
+    void step(int number_of_steps, uint8_t step_type=FULL_STEP);
 
   protected:
-    void stepMotor(int this_step, byte step_type);
+    void stepMotor(int this_step, uint8_t step_type);
     
     bool direction;        // Direction of rotation
     int speed;             // Speed in RPMs
@@ -47,10 +57,10 @@ class StepperAmperka {
     int step_number; // which step the motor is on
     
     // motor pin numbers:
-    byte motor_pin_1;
-    byte motor_pin_2;
-    byte motor_pin_3;
-    byte motor_pin_4;
+    uint8_t motor_pin_1;
+    uint8_t motor_pin_2;
+    uint8_t motor_pin_3;
+    uint8_t motor_pin_4;
     
     long last_step_time;      // time stamp in ms of when the last step was taken
 };
